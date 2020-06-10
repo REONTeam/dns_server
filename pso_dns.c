@@ -103,12 +103,12 @@ typedef int ssize_t;
 #elif defined(_arch_dreamcast)
 #define CONFIG_DIR "/rd"
 #else
-#define CONFIG_DIR "/etc/sylverant"
+#define CONFIG_DIR "/etc/reon/conf"
 #endif
 #endif
 
 #ifndef CONFIG_FILE
-#define CONFIG_FILE "pso_dns.conf"
+#define CONFIG_FILE "dns.conf"
 #endif
 
 typedef struct dnsmsg {
@@ -409,10 +409,6 @@ static void process_query(SOCKET sock, size_t len, struct sockaddr_in *addr) {
     anc = ntohs(inmsg->ancount);
     nsc = ntohs(inmsg->nscount);
     arc = ntohs(inmsg->arcount);
-
-    /* Check the message to make sure it looks like it came from PSO. */
-    if(qdc != 1 || anc != 0|| nsc != 0 || arc != 0)
-        return;
 
     /* Figure out the name of the host that the client is looking for. */
     i = 0;
